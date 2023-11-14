@@ -10,45 +10,65 @@ int main(void)
 	size_t buf_size = 0;
 	char *buf = NULL;
 	char *token;
-	int i, status = 0;
-	char **array;
+	int status = 0;
 	pid_t child_pid;
 
 	while (1)
 	{
 		write(1, "#cisfun$ ", 9);
-		getline(&buf, &buf_size, stdin);
-		token = strtok(buf, "\t\n");
-		array = malloc(sizeof(char *) * 1024);
-		i = 0; // Initialize i to 0 for each iteration
 
-		while (token)
+		/*
+		 * Read the command line
+		 */
+		if (getline(&buf, &buf_size, stdin) == EOF)
 		{
-			array[i] = token;
-			token = strtok(NULL, "\t\n");
-			i++;
+			/*
+			 * Handle end of file condition
+			 */
+			printf("\n");
+			free(buf);
+			break;
 		}
-		array[i] = NULL;
+		/*
+		 * Remove newline character
+		 */
+		buf[strcspn(buf, "\n")] = '\0';
+
+		token = strtok(buf, " ");
+
+		if (token == NULL)
+		{
+			/*
+			 * Empty command line, prompt again
+			 */
+			continue;
+		}
+
 		child_pid = fork();
 
-		if (child_pid == 0)
+		if (child_pid == -1)
 		{
-			if (execve(array[0], array, NULL) == -1)
-				perror("Error with exec");
+			perror("Fork failed");
+		}
+		else if (child_pid == 0)
+		{
+			/*
+			 * Child process
+			 * Print error if executable not found
+			 */
+			if (execlp(token, token, (char *)NULL) == -1)
+			{
+				fprintf(stderr, "%s: No such file or directory\n", token);
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
-		{
-			wait(&status);
-		}
-
-		// Free memory allocated for array
-		for (int j = 0; j < i; j++)
-		{
-			free(array[j]);
-		}
-		free(array);
+			/*
+			 * Parent process
+			 */
+			waitpid(child_pid, &status, 0);
 	}
 
-	free(buf); // Free the memory allocated for buf
+	free(buf);
 	return 0;
 }
