@@ -26,9 +26,10 @@ void execute(const char *command)
 			if (token[0] == '"')
 			{
 				char *q = strchr(token + 1, '"');
+
 				if (q != NULL)
 				{
-					args[arg_count++] = strndup(token + 1, q - token -1);
+					args[arg_count++] = strndup(token + 1, q - token - 1);
 				}
 				else
 				{
@@ -49,17 +50,17 @@ void execute(const char *command)
 			perror("execve");
 			exit(EXIT_FAILURE);
 		}
-
 		args[0] = (char *)command;
 		args[1] = NULL;
+
 		if (execvp(command, args) == -1)
 		{
-		perror("execve");
-		exit(EXIT_FAILURE);
+			perror("execve");
+			exit(EXIT_FAILURE);
 		}
 	}
 	else
 	{
-	wait(NULL);
+		wait(NULL);
 	}
 }
