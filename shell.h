@@ -2,7 +2,7 @@
 #define SHELL_H
 
 /**
- * Libraries meant for the simple shell
+ * libraries
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -12,7 +12,7 @@
 #include <string.h>
 
 /**
- * Function/ Methods
+ * functions
  */
 
 void print_func(const char *mess);
