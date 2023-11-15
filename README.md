@@ -1,10 +1,10 @@
-# COLLABORATORS
+## COLLABORATORS
 
 -Felix Kiptoo
 
 -Rehema Shammah
 
-# CONCEPTS
+## CONCEPTS
 
 
 For this project, we expect you to look at these concepts:
@@ -18,7 +18,7 @@ Write a simple UNIX command interpreter.
 
 
 
-# RESOURCES
+## RESOURCES
 
 
 Read or watch:
@@ -31,12 +31,12 @@ man or help:
 
 -sh (Run sh as well)
 
-# LEARNING OBJECTIVES
+## LEARNING OBJECTIVES
 
 
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
-# General
+## General
 Who designed and implemented the original Unix operating system
 Who wrote the first version of the UNIX shell
 Who invented the B programming language (the direct predecessor to the C programming language)
@@ -52,10 +52,10 @@ How to execute another program with the execve system call
 How to suspend the execution of a process until one of its children terminates
 What is EOF / “end-of-file”?
 
-# REQUIREMENTS
+## REQUIREMENTS
 
 
-# General
+## General
 
 
 Allowed editors: vi, vim, emacs
@@ -71,10 +71,10 @@ Write a README with the description of your project
 You should have an AUTHORS file at the root of your repository, listing all individuals having contributed content to the repository. Format, see Docker
 
 
-# MORE INFO
+## MORE INFO
 
 
-# Output
+## Output
 
 
 Unless specified otherwise, your program must have the exact same output as sh (/bin/sh) as well as the exact same error output.
@@ -94,7 +94,7 @@ $ echo "qwerty" | ./././hsh
 ./././hsh: 1: qwerty: not found
 $
 
-# List of allowed functions and system calls
+## List of allowed functions and system calls
 
 
 access (man 2 access)
@@ -129,14 +129,14 @@ wait3 (man 2 wait3)
 wait4 (man 2 wait4)
 write (man 2 write)
 
-# COMPILATION
+## COMPILATION
 
 
 Your shell will be compiled this way:
 
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
-# TESTING
+## TESTING
 
 
 Your shell should work like this in interactive mode:
