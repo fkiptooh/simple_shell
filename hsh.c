@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * Main Method - Entry point into the simple shell
+ * main - entry point into the simple shell
  *
  * Return: Always 0.
  */
@@ -49,18 +49,13 @@ int main(void)
                 wait(&status);
             }
 
-            /**
-             * Free memory allocated for array
-             */
             for (int j = 0; j < i; j++)
             {
                 free(array[j]);
             }
             free(array);
         }
-        /**
-         * Free the memory allocated for buf
-         */
+
         free(buf);
         return 0;
     }
