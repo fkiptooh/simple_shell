@@ -8,12 +8,12 @@
 
 int main(void)
 {
-    size_t buf_size = 0;
-    char *buf = NULL;
-    char *token;
-    int status, i = 0;
-    char **array;
-    pid_t child_pid;
+	size_t buf_size = 0;
+	char *buf = NULL;
+	char *token;
+	int status, i = 0;
+	char **array;
+	pid_t child_pid;
 
 	while (1)
 	{
