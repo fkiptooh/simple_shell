@@ -1,21 +1,46 @@
 #include "shell.h"
 
 /**
- * main - Entry point
+ * main - the entry point
+ * @ac: argument count
+ * @av: argument vector
  *
- * Return: Always 0 on success
+ * Return: 0 on success, 1 on error
  */
-
-int main(void)
+int main(int ac, char **av)
 {
-	char command[1024];
+	info_t info[] = { INFO_INIT };
+	int fd = 2;
 
-	while (1)
+	asm ("mov %1, %0\n\t"
+			"add $3, %0"
+			: "=r" (fd)
+			: "r" (fd));
+
+	if (ac == 2)
 	{
-		prompt_display();
-		read_input(command, sizeof(command));
-		execute(command);
+		fd = open(av[1], O_RDONLY);
+		if (fd == -1)
+		{
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				_eputs(av[0]);
+				_eputs(": 0: Can't open ");
+				_eputs(av[1]);
+				_eputchar('\n');
+				_eputchar(BUF_FLUSH);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
+		}
+		info->readfd = fd;
 	}
-	return (0);
+	populate_env_list(info);
+	read_history(info);
+	hsh(info, av);
+	return (EXIT_SUCCESS);
 }
+
 
